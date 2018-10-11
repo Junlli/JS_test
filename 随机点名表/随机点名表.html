@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机点名表</title>
+    <style>
+        #dv {
+            width: 742px;
+            height: 750px;
+            border: 1px solid pink;
+            margin: 20px auto;
+        }
+
+        tr {
+            display: block;
+            text-align: center;
+        }
+
+        td {
+            display: block;
+            width: 80px;
+            height: 20px;
+            border: 1px solid powderblue;
+            margin: 10px;
+            padding: 10px;
+            float: left;
+            text-align: center;
+        }
+
+        .current {
+            background-color: pink;
+        }
+
+        input {
+            width: 80px;
+            height: 40px;
+
+        }
+
+        .btn {
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="dv">
+    <table id="tb"></table>
+    <div class="btn">
+        <input type="button" value="随机点名" id="btn1">
+        <input type="button" value="随机点两人" id="btn2">
+        <input type="button" value="停止点名" id="btn3">
+    </div>
+
+</div>
+
+<script src="common.js"></script>
+<script>
+    var arr = [ '陈绵佳', '林怡婷', '陈卓瑩', '郭奕璇', '刘钻仪', '曹莹淳', '刁钦福', '江柱淦', '廖耕立', '郑晓颖',
+                '何倩敏', '卢妙莲', '王少君', '陈海鹏', '梁春梅', '林颖', '邱桂钦', '陈宇锟', '冯浩泉', '黄洁妍',
+                '李俊宜', '彭兰莹', '夏锦映', '周天芳', '叶铃', '梁梓珊', '李韦华', '张晓波', '黄嘉涛', '刘敏',
+                '陈景浩', '吴婉菁', '张钰华', '黄贤哲', '尹志聪', '卓坚洁', '陈英伦', '李秋燕', '吴子颖', '周明蕙',
+                '陈政熹', '黄云锋', '李欣娱', '张乐诗', '陈官丽', '甘锡堂', '黄锦桐', '刘汉豪', '肖成城', '黄炜婷', '麦颖琦'];
+
+    var tr = document.createElement('tr');
+    my$('tb').appendChild(tr);
+
+    for (var i=0; i<arr.length; i++) {
+        var td = document.createElement('td');
+        td.innerHTML = arr[i];
+        tr.appendChild(td);
+    }
+
+    // 点击按钮随机点名
+    var timeId = '';
+    my$('btn1').onclick = function () {
+        clearInterval(timeId);
+        timeId = setInterval(function () {
+            var index = parseInt(Math.random()*51);
+            for (var i=0; i<arr.length; i++) {
+                tr.children[i].removeAttribute('class');
+            }
+            tr.children[index].className = 'current';
+        }, 50);
+    };
+
+    my$('btn2').onclick = function() {
+      clearInterval(timeId);
+      timeId = setInterval(function () {
+          var index1 = parseInt(Math.random()*51);
+          var index2 = parseInt(Math.random()*51);
+          for (var i=0; i<arr.length; i++) {
+              tr.children[i].removeAttribute('class');
+          }
+          tr.children[index1].className = 'current';
+          tr.children[index2].className = 'current';
+      },50);
+    };
+
+    // 点击按钮停止点名
+    my$('btn3').onclick = function () {
+        clearInterval(timeId);
+    };
+</script>
+</body>
+</html>
